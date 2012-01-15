@@ -127,6 +127,34 @@ class ipsum {
 			
 	}
 	
+	function meta_key() {
+		$words = array();
+		
+		for ( $i=0; $i<rand(2,3); $i++) 
+			$words[] = $this->word();
+				
+		return implode( '_', $words);
+	}
+	
+	function meta_value() {
+		$words = array();
+		
+		for ( $i=0; $i<rand(2,5); $i++) 
+			$words[] = $this->word();
+				
+		return implode( ' ', $words);
+
+	}
+	
+	function insert_postmeta( $id ) {
+		
+		for ( $i = 0; $i < rand( 2, 5 ); $i++ ) { 
+			
+			update_post_meta( $id, $this->meta_key(), $this->meta_value() );
+			
+		}
+	}
+	
 	function insert_post() {
 		
 		$post = array( 
@@ -137,6 +165,7 @@ class ipsum {
 				
 		$id = wp_insert_post( $post );
 		$this->set_terms( $id );
+		$this->insert_postmeta( $id );
 		
 		return $id;
 	}
